@@ -2,4 +2,6 @@ This repository contains the assets used to generate my HTML email signature. Th
 
 I decided to open-source this software for the benefit of anyone else who wished to create an email signature using React. Have fun!
 
+To create the signature, execute `npm run build` in your terminal of choice.
+
 **Copyright © 2021-2022 [Anastasiya Polina Soyka](mailto:apsoyka@protonmail.com)**
