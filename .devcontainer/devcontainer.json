@@ -1,6 +1,33 @@
 {
-	"name": "Dev Container",
-	"build": {
-		"dockerfile": "Dockerfile"
-	}
+    "name": "Development Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2.0.8": {
+            "version": "latest",
+            "username": "automatic",
+            "uid": "automatic",
+            "gid": "automatic",
+            "configureZshAsDefaultShell": "true"
+        },
+        "ghcr.io/devcontainers/features/git:1.1.5": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/git-lfs:1.0.7": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/node:1.1.5": {
+            "version": "latest"
+        }
+    },
+    "mounts": [
+        "source=${devcontainerId}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+    ],
+    "containerEnv": {
+        "CHOKIDAR_USEPOLLING": "true",
+        "WATCHPACK_POLLING": "true"
+    },
+    "containerUser": "vscode",
+    "postCreateCommand": "sudo chown vscode:vscode node_modules"
 }

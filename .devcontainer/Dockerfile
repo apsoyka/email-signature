@@ -1,10 +1,6 @@
-FROM debian:bullseye
+FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
     apt --yes install --no-install-recommends \
-    git \
-    git-lfs \
-    nodejs \
-    npm \
-    gnupg2 \
-    openssh-client
+    openssh-client \
+    gnupg2
