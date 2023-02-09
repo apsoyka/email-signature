@@ -20,7 +20,7 @@ const render = () => {
         }
     );
     
-    const file = "build/signature.html";
+    const file = "./build/signature.html";
 
     writeFileSync(file, minified);
 };

@@ -10,6 +10,12 @@
             },
             "problemMatcher": [],
             "label": "Build"
+        },
+        {
+            "type": "npm",
+            "script": "clean",
+            "problemMatcher": [],
+            "label": "Clean"
         }
     ]
 }

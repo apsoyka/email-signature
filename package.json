@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-        "build": "tsc && node build/render.js"
+        "build": "tsc && node build/render.js",
+        "clean": "tsc && node build/clean.js"
     },
     "dependencies": {
         "html-minifier": "^4.0.0",
