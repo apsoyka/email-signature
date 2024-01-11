@@ -1,15 +1,14 @@
-import React from "react";
-import Avatar from "./Avatar";
+import Avatar from "./Avatar.js";
 
-interface Properties {
+interface ProfileProperties {
     name: string;
     pronouns: string;
     src: string;
 }
 
-const Profile: React.FC<Properties> = ({ name, pronouns, src }) => {
+const Profile = ({ name, pronouns, src }: React.PropsWithChildren<ProfileProperties>) => {
     return (
-        <table 
+        <table
             style={{
                 fontSize: "medium",
                 fontFamily: "Arial",
@@ -22,7 +21,7 @@ const Profile: React.FC<Properties> = ({ name, pronouns, src }) => {
             <tbody>
                 <tr>
                     <td>
-                        <h1 
+                        <h1
                             color="#000000"
                             style={{
                                 margin: 0,
@@ -32,7 +31,7 @@ const Profile: React.FC<Properties> = ({ name, pronouns, src }) => {
                         >
                             <span>{name}</span>
                         </h1>
-                        <h2 
+                        <h2
                             color="#000000"
                             style={{
                                 margin: 0,

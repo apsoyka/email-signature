@@ -1,25 +1,18 @@
-import React from "react";
+import EmbeddedImage from "./EmbeddedImage.js";
 
-interface Properties {
+interface SocialMediaBadgeProperties {
     href: string;
     src: string;
     alt: string;
 }
 
-const SocialMediaBadge: React.FC<Properties> = ({ href, src, alt }) => {
+const SocialMediaBadge = ({ href, src, alt }: React.PropsWithChildren<SocialMediaBadgeProperties>) => {
     return (
-        <a 
+        <a
             href={href}
             color="#6A78D1"
             style={{ display: "inline-block", padding: 0 }}>
-            <img
-                src={src}
-                alt={alt}
-                color="#6A78D1"
-                style={{ maxWidth: 128, display: "block" }}
-                height="32"
-            >
-            </img>
+            <EmbeddedImage src={src} alt={alt} height="32"/>
         </a>
     );
 };

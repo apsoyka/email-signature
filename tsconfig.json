@@ -3,12 +3,12 @@
         "./src/**/*"
     ],
     "compilerOptions": {
-        "lib": [
-            "dom",
-            "es2019"
-        ],
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
         "outDir": "build",
-        "jsx": "react",
-        "esModuleInterop": true
+        "jsx": "react-jsx",
+        "esModuleInterop": true,
+        "strict": false
     }
 }

@@ -1,19 +1,16 @@
-import React from "react";
-
-interface Properties {
+interface AvatarProperties {
     src: string;
 }
 
-const Avatar: React.FC<Properties> = ({ src }) => {
+const Avatar = ({ src }: React.PropsWithChildren<AvatarProperties>) => {
     return (
         <span
             style={{
                 display: "inline-block",
                 textAlign: "right",
                 width: "100%"
-            }}
-        >
-            <img 
+            }}>
+            <img
                 src={src}
                 alt="avatar"
                 role="presentation"
@@ -22,8 +19,7 @@ const Avatar: React.FC<Properties> = ({ src }) => {
                     display: "inline",
                     textAlign: "right"
                 }}
-                width="130"
-            >
+                width="130">
             </img>
         </span>
     )

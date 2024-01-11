@@ -1,6 +1,9 @@
-import React from "react";
-import Profile from "./Profile";
-import SocialMedia from "./SocialMedia";
+import EmbeddedImage from "./EmbeddedImage.js";
+import Profile from "./Profile.js";
+import SocialMedia from "./SocialMedia.js";
+import loadImage from "./loadImage.js";
+
+const flag = await loadImage("assets/png/flag.png", "image/png");
 
 const Signature: React.FC = () => {
     return (
@@ -15,24 +18,24 @@ const Signature: React.FC = () => {
         >
             <tbody>
                 <tr>
-                    <td 
-                        color="#F2547D" 
+                    <td
+                        colSpan={2}
+                        color="#F2547D"
                         dir="horizontal"
                         style={{
                             width: "100%",
                             borderBottom: "1px solid rgb(0, 0, 0)",
                             borderLeft: "medium none",
-                            display: "block"
+                            display: "table-cell"
                         }}
-                        height="1"
-                    >
+                        height="1">
                     </td>
                 </tr>
                 <tr>
-                    <td height="30"></td>
+                    <td colSpan={2} height="30"></td>
                 </tr>
                 <tr>
-                    <td>
+                    <td colSpan={2}>
                         <Profile
                             name="Anastasiya Polina Soyka"
                             pronouns="She/Her"
@@ -41,26 +44,30 @@ const Signature: React.FC = () => {
                     </td>
                 </tr>
                 <tr>
-                    <td height="30"></td>
+                    <td colSpan={2} height="30"></td>
                 </tr>
                 <tr>
-                    <td 
-                        color="#F2547D" 
+                    <td
+                        colSpan={2}
+                        color="#F2547D"
                         dir="horizontal"
                         style={{
                             width: "100%",
                             borderBottom: "1px solid rgb(0, 0, 0)",
                             borderLeft: "medium none",
-                            display: "block"
+                            display: "table-cell"
                         }}
                         height="1"
                     >
                     </td>
                 </tr>
                 <tr>
-                    <td height="30"></td>
+                    <td colSpan={2} height="30"></td>
                 </tr>
                 <tr>
+                    <td>
+                        <EmbeddedImage src={flag} alt="Flag" height="32"/>
+                    </td>
                     <td>
                         <SocialMedia />
                     </td>

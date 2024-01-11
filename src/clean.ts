@@ -1,13 +1,11 @@
-import { rmSync } from "fs";
+import { rm, readdir } from "fs/promises";
 
-function clean() {
-    rmSync(
-        "./build",
-        {
-            "force": true,
-            "recursive": true
-        }
-    )
+async function clean() {
+    const directory = "build";
+    const files = await readdir(directory);
+    const promises = files.map(file => `${directory}/${file}`).map(path => rm(path));
+
+    await Promise.all(promises);
 }
 
-clean();
+await clean();
