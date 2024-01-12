@@ -3,7 +3,7 @@ import Profile from "./Profile.js";
 import SocialMedia from "./SocialMedia.js";
 import loadImage from "../loadImage.js";
 
-const flag = await loadImage("flag", 32, 19);
+const flag = await loadImage("flag", 53, 32);
 
 const Signature: React.FC = () => {
     return (
