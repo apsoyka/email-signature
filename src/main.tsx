@@ -1,13 +1,33 @@
-import { writeFile } from "fs/promises";
+import { mkdir, writeFile } from "fs/promises";
 import minfify from "html-minifier";
 import { renderToStaticMarkup } from "react-dom/server";
 import Signature from "./components/Signature.js";
+import getPath from "./getPath.js";
+import loadImage from "./loadImage.js";
+
+async function mkdirs(path: string) {
+    await mkdir(`${path}/png`, { recursive: true });
+    await mkdir(`${path}/html`, { recursive: true });
+}
 
 async function main() {
-    const outputPath = "build/output.html";
-    const minifiedPath = "build/minified.html"
+    const buildPath = getPath("build");
+    const outputPath = `${buildPath}/html/output.html`;
+    const minifiedPath = `${buildPath}/html/minified.html`;
 
-    const output = renderToStaticMarkup(<Signature />);
+    await mkdirs(buildPath);
+
+    const flag = await loadImage("flag", 53, 32);
+    const envelope = await loadImage("envelope", 28, 32);
+    const facebook = await loadImage("facebook", 32, 32);
+    const github = await loadImage("github", 31, 32);
+    const instagram = await loadImage("instagram", 28 ,32);
+    const twitter = await loadImage("twitter", 32, 32);
+
+    const props = { flag, envelope, facebook, github, instagram, twitter };
+    const root = <Signature {...props} />;
+
+    const output = renderToStaticMarkup(root);
 
     await writeFile(outputPath, output);
 

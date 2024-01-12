@@ -1,13 +1,14 @@
 import SocialMediaBadge from "./SocialMediaBadge.js";
-import loadImage from "../loadImage.js";
 
-const envelope = await loadImage("envelope", 28, 32);
-const facebook = await loadImage("facebook", 32, 32);
-const github = await loadImage("github", 31, 32);
-const instagram = await loadImage("instagram", 28 ,32);
-const twitter = await loadImage("twitter", 32, 32);
+type SocialMediaProps = {
+    envelope: string;
+    facebook: string;
+    github: string;
+    instagram: string;
+    twitter: string;
+}
 
-const SocialMedia: React.FC = () => {
+const SocialMedia = ({ envelope, facebook, github, instagram, twitter }: React.PropsWithChildren<SocialMediaProps>) => {
     return (
         <table
             style={{

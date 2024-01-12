@@ -1,11 +1,17 @@
 import EmbeddedImage from "./EmbeddedImage.js";
 import Profile from "./Profile.js";
 import SocialMedia from "./SocialMedia.js";
-import loadImage from "../loadImage.js";
 
-const flag = await loadImage("flag", 53, 32);
+type SignatureProps = {
+    flag: string;
+    envelope: string;
+    facebook: string;
+    github: string;
+    instagram: string;
+    twitter: string;
+}
 
-const Signature: React.FC = () => {
+const Signature = ({ flag, ...props }: React.PropsWithChildren<SignatureProps>) => {
     return (
         <table
             style={{
@@ -69,7 +75,7 @@ const Signature: React.FC = () => {
                         <EmbeddedImage src={flag} alt="Flag" height="32"/>
                     </td>
                     <td>
-                        <SocialMedia />
+                        <SocialMedia {...props} />
                     </td>
                 </tr>
             </tbody>
