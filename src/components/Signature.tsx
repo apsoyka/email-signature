@@ -1,9 +1,9 @@
 import EmbeddedImage from "./EmbeddedImage.js";
 import Profile from "./Profile.js";
 import SocialMedia from "./SocialMedia.js";
-import loadImage from "./loadImage.js";
+import loadImage from "../loadImage.js";
 
-const flag = await loadImage("assets/png/flag.png", "image/png");
+const flag = await loadImage("flag", 32, 19);
 
 const Signature: React.FC = () => {
     return (

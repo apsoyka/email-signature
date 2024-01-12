@@ -1,7 +1,21 @@
-import { readFile } from "fs/promises";
+import { writeFile } from "fs/promises";
+import sharp from "sharp";
 
-export default async function loadImage(path: string, type: string): Promise<string> {
-    const data = await readFile(path, { encoding: "base64" });
+function formatDataURL(data: string): string {
+    return `data:image/png;base64,${data}`;
+}
 
-    return `data:${type};base64,${data}`;
+export default async function loadImage(name: string, width: number, height: number): Promise<string> {
+    const inputPath = `src/svg/${name}.svg`;
+    const outputPath = `build/${name}.png`;
+
+    const buffer = await sharp(inputPath)
+        .resize(width, height)
+        .png({ compressionLevel: 9, palette: false, progressive: false })
+        .toBuffer();
+    const data = buffer.toString("base64");
+
+    await writeFile(outputPath, buffer);
+
+    return formatDataURL(data);
 }

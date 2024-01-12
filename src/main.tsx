@@ -1,12 +1,17 @@
 import { writeFile } from "fs/promises";
 import minfify from "html-minifier";
 import { renderToStaticMarkup } from "react-dom/server";
-import Signature from "./Signature.js";
+import Signature from "./components/Signature.js";
 
 async function main() {
-    const html = renderToStaticMarkup(<Signature />);
+    const outputPath = "build/output.html";
+    const minifiedPath = "build/minified.html"
 
-    const minified = minfify.minify(html, {
+    const output = renderToStaticMarkup(<Signature />);
+
+    await writeFile(outputPath, output);
+
+    const minified = minfify.minify(output, {
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
             minifyCSS: true,
@@ -16,9 +21,7 @@ async function main() {
             removeTagWhitespace: true
     });
 
-    const file = "./build/signature.html";
-
-    await writeFile(file, minified);
+    await writeFile(minifiedPath, minified);
 };
 
 await main();

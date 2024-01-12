@@ -1,11 +1,11 @@
 import SocialMediaBadge from "./SocialMediaBadge.js";
-import loadImage from "./loadImage.js";
+import loadImage from "../loadImage.js";
 
-const envelope = await loadImage("assets/png/envelope.png", "image/png");
-const facebook = await loadImage("assets/png/facebook.png", "image/png");
-const github = await loadImage("assets/png/github.png", "image/png");
-const instagram = await loadImage("assets/png/instagram.png", "image/png");
-const twitter = await loadImage("assets/png/twitter.png", "image/png");
+const envelope = await loadImage("envelope", 28, 32);
+const facebook = await loadImage("facebook", 32, 32);
+const github = await loadImage("github", 31, 32);
+const instagram = await loadImage("instagram", 28 ,32);
+const twitter = await loadImage("twitter", 32, 32);
 
 const SocialMedia: React.FC = () => {
     return (
