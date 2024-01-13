@@ -16,10 +16,12 @@ const Avatar = ({ src }: React.PropsWithChildren<AvatarProperties>) => {
                 role="presentation"
                 style={{
                     maxWidth: 130,
+                    maxHeight: 130,
                     display: "inline",
                     textAlign: "right"
                 }}
-                width="130">
+                width="130"
+                height="130">
             </img>
         </span>
     )

@@ -17,6 +17,7 @@ async function main() {
 
     await mkdirs(buildPath);
 
+    const email = "apsoyka@protonmail.com";
     const flag = await loadImage("flag", 53, 32);
     const envelope = await loadImage("envelope", 28, 32);
     const facebook = await loadImage("facebook", 32, 32);
@@ -24,7 +25,8 @@ async function main() {
     const instagram = await loadImage("instagram", 28 ,32);
     const twitter = await loadImage("twitter", 32, 32);
 
-    const props = { flag, envelope, facebook, github, instagram, twitter };
+    const images = { flag, envelope, facebook, github, instagram, twitter };
+    const props = { email, images };
     const root = <Signature {...props} />;
 
     const output = renderToStaticMarkup(root);

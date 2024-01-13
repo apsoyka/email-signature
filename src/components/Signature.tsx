@@ -1,8 +1,9 @@
+import getGravatarURL from "../getGravatarURL.js";
 import EmbeddedImage from "./EmbeddedImage.js";
 import Profile from "./Profile.js";
 import SocialMedia from "./SocialMedia.js";
 
-type SignatureProps = {
+type ImageData = {
     flag: string;
     envelope: string;
     facebook: string;
@@ -11,7 +12,14 @@ type SignatureProps = {
     twitter: string;
 }
 
-const Signature = ({ flag, ...props }: React.PropsWithChildren<SignatureProps>) => {
+type SignatureProps = {
+    email: string;
+    images: ImageData;
+}
+
+const Signature = ({ email, images }: React.PropsWithChildren<SignatureProps>) => {
+    const url = getGravatarURL(email, 130);
+
     return (
         <table
             style={{
@@ -45,7 +53,7 @@ const Signature = ({ flag, ...props }: React.PropsWithChildren<SignatureProps>) 
                         <Profile
                             name="Anastasiya Polina Soyka"
                             pronouns="She/Her"
-                            src="https://www.gravatar.com/avatar/eb59af229b9abe122d2900014e91cc31"
+                            src={url}
                         />
                     </td>
                 </tr>
@@ -72,10 +80,10 @@ const Signature = ({ flag, ...props }: React.PropsWithChildren<SignatureProps>) 
                 </tr>
                 <tr>
                     <td>
-                        <EmbeddedImage src={flag} alt="Flag" height="32"/>
+                        <EmbeddedImage src={images.flag} alt="Flag" height="32"/>
                     </td>
                     <td>
-                        <SocialMedia {...props} />
+                        <SocialMedia {...images} />
                     </td>
                 </tr>
             </tbody>
