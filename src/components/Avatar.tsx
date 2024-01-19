@@ -1,8 +1,10 @@
-interface AvatarProperties {
+type AvatarProperties = {
     src: string;
-}
+};
 
-const Avatar = ({ src }: React.PropsWithChildren<AvatarProperties>) => {
+const Avatar = (props: React.PropsWithChildren<AvatarProperties>) => {
+    const { src } = props;
+
     return (
         <span
             style={{

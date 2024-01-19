@@ -1,11 +1,13 @@
-interface EmbeddedImageProperties {
+type EmbeddedImageProperties = {
     src: string;
     alt: string;
     width?: string | number;
     height?: string | number;
-}
+};
 
-const EmbeddedImage = ({ src, alt, width, height }: React.PropsWithChildren<EmbeddedImageProperties>) => {
+const EmbeddedImage = (props: React.PropsWithChildren<EmbeddedImageProperties>) => {
+    const { src, alt, width, height } = props;
+
     return (
         <img
             src={src}

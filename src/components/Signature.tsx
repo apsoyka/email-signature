@@ -1,24 +1,24 @@
-import getGravatarURL from "../getGravatarURL.js";
 import EmbeddedImage from "./EmbeddedImage.js";
 import Profile from "./Profile.js";
 import SocialMedia from "./SocialMedia.js";
 
 type ImageData = {
+    avatar: string;
     flag: string;
     envelope: string;
     facebook: string;
     github: string;
     instagram: string;
     twitter: string;
-}
+};
 
 type SignatureProps = {
     email: string;
     images: ImageData;
 }
 
-const Signature = ({ email, images }: React.PropsWithChildren<SignatureProps>) => {
-    const url = getGravatarURL(email, 130);
+const Signature = (props: React.PropsWithChildren<SignatureProps>) => {
+    const { email, images } = props;
 
     return (
         <table
@@ -53,7 +53,7 @@ const Signature = ({ email, images }: React.PropsWithChildren<SignatureProps>) =
                         <Profile
                             name="Anastasiya Polina Soyka"
                             pronouns="She/Her"
-                            src={url}
+                            src={images.avatar}
                         />
                     </td>
                 </tr>
@@ -83,7 +83,7 @@ const Signature = ({ email, images }: React.PropsWithChildren<SignatureProps>) =
                         <EmbeddedImage src={images.flag} alt="Flag" height="32"/>
                     </td>
                     <td>
-                        <SocialMedia {...images} />
+                        <SocialMedia email={email} {...images} />
                     </td>
                 </tr>
             </tbody>

@@ -1,12 +1,14 @@
 import Avatar from "./Avatar.js";
 
-interface ProfileProperties {
+type ProfileProperties = {
     name: string;
     pronouns: string;
     src: string;
-}
+};
 
-const Profile = ({ name, pronouns, src }: React.PropsWithChildren<ProfileProperties>) => {
+const Profile = (props: React.PropsWithChildren<ProfileProperties>) => {
+    const { name, pronouns, src } = props;
+
     return (
         <table
             style={{

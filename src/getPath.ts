@@ -1,12 +1,15 @@
-import process from "process";
+import { cwd } from "process";
+import { join } from "path";
 
-const cwd = process.cwd();
+export default function getPath(type: "root" | "src" | "build", ...paths: string[]): string {
+    const parent = cwd();
 
-export default function getPath(type: "src" | "build"): string {
     switch (type) {
+        case "root":
+            return join(parent, ...paths);
         case "src":
-            return `${cwd}/src`;
+            return join(parent, "src", ...paths);
         case "build":
-            return `${cwd}/build`;
+            return join(parent, "build", ...paths);
     }
 }

@@ -1,39 +1,114 @@
 import { mkdir, writeFile } from "fs/promises";
-import minfify from "html-minifier";
+import { minify } from "html-minifier";
 import { renderToStaticMarkup } from "react-dom/server";
+import { parseArgs } from "util";
 import Signature from "./components/Signature.js";
 import getPath from "./getPath.js";
+import exportImage from "./exportImage.js";
 import loadImage from "./loadImage.js";
+import copyImage from "./copyImage.js";
+import getGravatarURL from "./getGravatarURL.js";
 
-async function mkdirs(path: string) {
-    await mkdir(`${path}/png`, { recursive: true });
-    await mkdir(`${path}/html`, { recursive: true });
+type ImageData = {
+    flag: string;
+    envelope: string;
+    facebook: string;
+    github: string;
+    instagram: string;
+    twitter: string;
+};
+
+async function mkdirs(...paths: string[]) {
+    const promises = paths.map(
+        async path => await mkdir(path, { recursive: true })
+    );
+
+    await Promise.all(promises);
+}
+
+async function createImages() {
+    await exportImage("flag", 53, 32);
+    await exportImage("envelope", 28, 32);
+    await exportImage("facebook", 32, 32);
+    await exportImage("github", 31, 32);
+    await exportImage("instagram", 28 ,32);
+    await exportImage("twitter", 32, 32);
+}
+
+async function copyImages() {
+    await copyImage("avatar", "jpeg");
+}
+
+async function loadImages(email?: string): Promise<ImageData> {
+    return {
+        flag: await loadImage("flag", "png"),
+        envelope: await loadImage("envelope", "png"),
+        facebook: await loadImage("facebook", "png"),
+        github: await loadImage("github", "png"),
+        instagram: await loadImage("instagram", "png"),
+        twitter: await loadImage("twitter", "png")
+    };
+}
+
+function validateEmail(email: string) {
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    if (!email) {
+        throw Error("Must provide an email address");
+    }
+
+    if (!regex.test(email)) {
+        throw Error("Email address is invalid");
+    }
 }
 
 async function main() {
-    const buildPath = getPath("build");
-    const outputPath = `${buildPath}/html/output.html`;
-    const minifiedPath = `${buildPath}/html/minified.html`;
+    const { values, positionals } = parseArgs({
+        options: {
+            useGravatar: {
+                type: "boolean",
+                short: "g",
+                default: false
+            }
+        },
+        strict: true,
+        allowPositionals: true
+    });
 
-    await mkdirs(buildPath);
+    // Create build directories if they don't already exist.
+    await mkdirs(
+        getPath("build", "html"),
+        getPath("build", "png"),
+        getPath("build", "jpeg")
+    );
 
-    const email = "apsoyka@protonmail.com";
-    const flag = await loadImage("flag", 53, 32);
-    const envelope = await loadImage("envelope", 28, 32);
-    const facebook = await loadImage("facebook", 32, 32);
-    const github = await loadImage("github", 31, 32);
-    const instagram = await loadImage("instagram", 28 ,32);
-    const twitter = await loadImage("twitter", 32, 32);
+    // Copy bitmap images to build directory.
+    await copyImages();
 
-    const images = { flag, envelope, facebook, github, instagram, twitter };
-    const props = { email, images };
-    const root = <Signature {...props} />;
+    // Convert vector images to bitmap images.
+    await createImages();
 
-    const output = renderToStaticMarkup(root);
+    const email = positionals[0];
 
-    await writeFile(outputPath, output);
+    // Ensure that an email address exists and is valid.
+    validateEmail(email);
 
-    const minified = minfify.minify(output, {
+    // Load all image data.
+    const imageData = {
+        avatar: values.useGravatar ? getGravatarURL(email, 130) : await loadImage("avatar", "jpeg"),
+        ...await loadImages()
+    };
+
+    // Render unoptimized HTML file.
+    const unoptimized = renderToStaticMarkup(<Signature email={email} images={imageData} />);
+
+    await writeFile(
+        getPath("build", "html", "unoptimized.html"),
+        unoptimized
+    );
+
+    // Minify HTML markup.
+    const minified = minify(unoptimized, {
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
             minifyCSS: true,
@@ -43,7 +118,10 @@ async function main() {
             removeTagWhitespace: true
     });
 
-    await writeFile(minifiedPath, minified);
+    await writeFile(
+        getPath("build", "html", "minified.html"),
+        minified
+    );
 };
 
 await main();

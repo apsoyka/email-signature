@@ -1,14 +1,17 @@
 import SocialMediaBadge from "./SocialMediaBadge.js";
 
 type SocialMediaProps = {
+    email: string;
     envelope: string;
     facebook: string;
     github: string;
     instagram: string;
     twitter: string;
-}
+};
 
-const SocialMedia = ({ envelope, facebook, github, instagram, twitter }: React.PropsWithChildren<SocialMediaProps>) => {
+const SocialMedia = (props: React.PropsWithChildren<SocialMediaProps>) => {
+    const { email, envelope, facebook, github, instagram, twitter } = props;
+
     return (
         <table
             style={{
@@ -41,7 +44,7 @@ const SocialMedia = ({ envelope, facebook, github, instagram, twitter }: React.P
                                 <tr style={{ textAlign: "right" }}>
                                     <td>
                                         <SocialMediaBadge
-                                            href="mailto:apsoyka@protonmail.com"
+                                            href={`mailto:${email}`}
                                             src={envelope}
                                             alt="email"
                                         />

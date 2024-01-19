@@ -1,12 +1,14 @@
 import EmbeddedImage from "./EmbeddedImage.js";
 
-interface SocialMediaBadgeProperties {
+type SocialMediaBadgeProperties = {
     href: string;
     src: string;
     alt: string;
-}
+};
 
-const SocialMediaBadge = ({ href, src, alt }: React.PropsWithChildren<SocialMediaBadgeProperties>) => {
+const SocialMediaBadge = (props: React.PropsWithChildren<SocialMediaBadgeProperties>) => {
+    const { href, src, alt } = props;
+
     return (
         <a
             href={href}
