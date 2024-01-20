@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, writeFile, rm, readdir } from "fs/promises";
 import { minify } from "html-minifier";
 import { renderToStaticMarkup } from "react-dom/server";
 import { parseArgs } from "util";
@@ -62,19 +62,14 @@ function validateEmail(email: string) {
     }
 }
 
-async function main() {
-    const { values, positionals } = parseArgs({
-        options: {
-            useGravatar: {
-                type: "boolean",
-                short: "g",
-                default: false
-            }
-        },
-        strict: true,
-        allowPositionals: true
-    });
+async function clean() {
+    const files = await readdir(getPath("build"));
+    const promises = files.map(file => getPath("build", file)).map(path => rm(path, { recursive: true }));
 
+    await Promise.all(promises);
+}
+
+async function render(email: string, useGravatar: boolean) {
     // Create build directories if they don't already exist.
     await mkdirs(
         getPath("build", "html"),
@@ -88,14 +83,12 @@ async function main() {
     // Convert vector images to bitmap images.
     await createImages();
 
-    const email = positionals[0];
-
     // Ensure that an email address exists and is valid.
     validateEmail(email);
 
     // Load all image data.
     const imageData = {
-        avatar: values.useGravatar ? getGravatarURL(email, 130) : await loadImage("avatar", "jpeg"),
+        avatar: useGravatar ? getGravatarURL(email, 130) : await loadImage("avatar", "jpeg"),
         ...await loadImages()
     };
 
@@ -122,6 +115,35 @@ async function main() {
         getPath("build", "html", "minified.html"),
         minified
     );
+}
+
+async function main() {
+    const { values, positionals } = parseArgs({
+        options: {
+            useGravatar: {
+                type: "boolean",
+                short: "g",
+                default: false
+            }
+        },
+        strict: true,
+        allowPositionals: true
+    });
+
+    const command = positionals[0];
+
+    switch (command) {
+        case "render":
+            const email = positionals[1];
+            const { useGravatar } = values;
+            await render(email, useGravatar);
+            break;
+        case "clean":
+            await clean();
+            break;
+        default:
+            throw Error("Invalid command")
+    }
 };
 
 await main();

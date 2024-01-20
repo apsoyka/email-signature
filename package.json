@@ -4,8 +4,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "tsc && node build/main.js apsoyka@protonmail.com",
-        "clean": "tsc && node build/clean.js"
+        "build": "tsc --noEmit && esbuild src/main.tsx --bundle --minify --platform=node --outdir=build --format=esm --packages=external",
+        "render": "node build/main.js render apsoyka@protonmail.com",
+        "clean": "node build/main.js clean"
     },
     "dependencies": {
         "html-minifier": "^4.0.0",
@@ -17,6 +18,7 @@
         "@types/html-minifier": "^4.0.5",
         "@types/react": "^18.2.47",
         "@types/react-dom": "^18.2.18",
+        "esbuild": "0.19.11",
         "typescript": "^5.3.3"
     }
 }

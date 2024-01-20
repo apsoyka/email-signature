@@ -16,6 +16,12 @@
             "script": "clean",
             "problemMatcher": [],
             "label": "Clean"
+        },
+        {
+            "type": "npm",
+            "script": "render",
+            "problemMatcher": [],
+            "label": "Render"
         }
     ]
 }
