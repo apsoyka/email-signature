@@ -2,6 +2,7 @@ import { mkdir, writeFile, rm, readdir } from "fs/promises";
 import { minify } from "html-minifier";
 import { renderToStaticMarkup } from "react-dom/server";
 import { parseArgs } from "util";
+import beautify from "js-beautify";
 import Signature from "./components/Signature.js";
 import getPath from "./getPath.js";
 import exportImage from "./exportImage.js";
@@ -92,23 +93,34 @@ async function render(email: string, useGravatar: boolean) {
         ...await loadImages()
     };
 
-    // Render unoptimized HTML file.
-    const unoptimized = renderToStaticMarkup(<Signature email={email} images={imageData} />);
+    // Render static markup.
+    const rendered = renderToStaticMarkup(<Signature email={email} images={imageData} />);
+
+    // Pretty print markup.
+    const pretty = beautify.html(rendered);
 
     await writeFile(
-        getPath("build", "html", "unoptimized.html"),
-        unoptimized
+        getPath("build", "html", "pretty.html"),
+        pretty
     );
 
     // Minify HTML markup.
-    const minified = minify(unoptimized, {
+    const minified = minify(rendered, {
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
+            collapseBooleanAttributes: true,
             minifyCSS: true,
             minifyURLs: true,
             removeComments: true,
             removeOptionalTags: true,
-            removeTagWhitespace: true
+            removeTagWhitespace: true,
+            removeAttributeQuotes: true,
+            removeEmptyAttributes: true,
+            removeRedundantAttributes: true,
+            preserveLineBreaks: false,
+            sortAttributes: true,
+            sortClassName: true,
+            html5: true
     });
 
     await writeFile(
