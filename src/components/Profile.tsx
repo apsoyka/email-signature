@@ -3,11 +3,12 @@ import Avatar from "./Avatar.js";
 type ProfileProperties = {
     name: string;
     pronouns: string;
+    location: string;
     src: string;
 };
 
 const Profile = (props: React.PropsWithChildren<ProfileProperties>) => {
-    const { name, pronouns, src } = props;
+    const { name, pronouns, location, src } = props;
 
     return (
         <table
@@ -45,6 +46,7 @@ const Profile = (props: React.PropsWithChildren<ProfileProperties>) => {
                         >
                             <span><i>{pronouns}</i></span>
                         </h2>
+                        <span>{location}</span>
                     </td>
                     <td style={{ textAlign: "right" }}>
                         <Avatar src={src} />

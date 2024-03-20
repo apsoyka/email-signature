@@ -53,6 +53,7 @@ const Signature = (props: React.PropsWithChildren<SignatureProps>) => {
                         <Profile
                             name="Anastasiya Polina Soyka"
                             pronouns="She/Her"
+                            location="🇨🇦"
                             src={images.avatar}
                         />
                     </td>

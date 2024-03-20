@@ -21,7 +21,8 @@
             "type": "npm",
             "script": "render",
             "problemMatcher": [],
-            "label": "Render"
+            "label": "Render",
+            "dependsOn": ["Build"]
         }
     ]
 }
