@@ -87,6 +87,24 @@ const Signature = (props: React.PropsWithChildren<SignatureProps>) => {
                         <SocialMedia email={email} {...images} />
                     </td>
                 </tr>
+                <tr>
+                    <td colSpan={2} height="30"></td>
+                </tr>
+                <tr>
+                    <td
+                        colSpan={2}
+                        color="#F2547D"
+                        dir="horizontal"
+                        style={{
+                            width: "100%",
+                            borderBottom: "1px solid rgb(0, 0, 0)",
+                            borderLeft: "medium none",
+                            display: "table-cell"
+                        }}
+                        height="1"
+                    >
+                    </td>
+                </tr>
             </tbody>
         </table>
     );
