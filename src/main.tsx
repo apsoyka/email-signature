@@ -1,5 +1,5 @@
 import { mkdir, writeFile, rm, readdir } from "fs/promises";
-import { minify } from "html-minifier";
+import { minify } from "html-minifier-terser";
 import { renderToStaticMarkup } from "react-dom/server";
 import { parseArgs } from "util";
 import beautify from "js-beautify";
@@ -105,7 +105,7 @@ async function render(email: string, useGravatar: boolean) {
     );
 
     // Minify HTML markup.
-    const minified = minify(rendered, {
+    const minified = await minify(rendered, {
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
             collapseBooleanAttributes: true,

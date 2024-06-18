@@ -9,18 +9,19 @@
         "clean": "node build/main.js clean"
     },
     "dependencies": {
-        "html-minifier": "^4.0.0",
-        "js-beautify": "^1.14.11",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "sharp": "^0.33.2"
+        "html-minifier-terser": "^7.2.0",
+        "js-beautify": "^1.15.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "sharp": "^0.33.4"
     },
     "devDependencies": {
-        "@types/html-minifier": "^4.0.5",
+        "@types/html-minifier-terser": "^7.0.2",
         "@types/js-beautify": "^1.14.3",
-        "@types/react": "^18.2.48",
-        "@types/react-dom": "^18.2.18",
-        "esbuild": "0.19.12",
-        "typescript": "^5.3.3"
+        "@types/node": "^20.14.4",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "esbuild": "^0.21.5",
+        "typescript": "^5.4.5"
     }
 }
